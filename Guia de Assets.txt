@@ -1,0 +1,25 @@
+PERSONAJE PRINCIPAL 
+
+Ninja Sprite Sheet 
+
+
+MOBS 
+
+
+
+
+SUELO
+
+
+
+
+FONDOS
+
+
+
+
+
+RECURSOS
+
+
+Knight Sprite Sheet (pociones para curarse)
