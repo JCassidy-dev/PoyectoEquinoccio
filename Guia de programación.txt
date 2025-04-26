@@ -1,0 +1,6 @@
+ACTIVAR SUELO
+rgbd en los pj, tilemap clldr en el suelo
+
+NO FLOTAR
+Meter el boxcollider dentro de los pies
+
