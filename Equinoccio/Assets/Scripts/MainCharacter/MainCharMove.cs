@@ -7,6 +7,8 @@ public class MainCharMove : MonoBehaviour
     public float directionX;
     public Vector2 currentDirection;
     public Vector2 lastDirection;
+    private Vector2 smoothTimeRef;
+    public float smoothTime;
 
     void Awake()
     {
@@ -19,6 +21,8 @@ public class MainCharMove : MonoBehaviour
         currentDirection = Vector2.zero;
         lastDirection = Vector2.zero;
         directionX = 0f;
+        smoothTimeRef = Vector2.zero;
+        smoothTime = 0.01f;
     }
     public void SetDirection(Vector2 direction, bool isPressed)
     {
@@ -39,6 +43,7 @@ public class MainCharMove : MonoBehaviour
     }
     void FixedUpdate()
     {
-        rb.linearVelocity = currentDirection * speed;
+        Vector2 targetVelocity = new Vector2(currentDirection.x * speed, rb.linearVelocity.y);
+        rb.linearVelocity = Vector2.SmoothDamp(rb.linearVelocity, targetVelocity, ref smoothTimeRef, smoothTime);
     }   
 }
