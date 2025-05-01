@@ -13,42 +13,38 @@ public class MainCharImputs : MonoBehaviour
 
     void Update()
     {
-        // Detecta las teclas y pasa el input al otro script
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.W))
         {
-            mainCharController.SetImput("Up");
-
+            mainCharController.UserImput("Up");
         }
         if (Input.GetKey(KeyCode.A))
         {
-            mainCharController.SetImput("Left");
-
+            mainCharController.UserImput("Left");
         }
         if (Input.GetKey(KeyCode.S))
         {
-            mainCharController.SetImput("Down");
-
+            mainCharController.UserImput("Down");
         }
         if (Input.GetKey(KeyCode.D))
         {
-            mainCharController.SetImput("Right");
+            mainCharController.UserImput("Right");
+        }
 
-        }
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            mainCharController.SetImput("Stop");
-        }
-        if (Input.GetKey(KeyCode.Space))
-        {
-            mainCharController.SetImput("Jump");
+            
         }
         if (Input.GetKey(KeyCode.J))
         {
-            mainCharController.SetImput("Hit");
+            mainCharController.UserImput("AtkM");
         }
         if (Input.GetKey(KeyCode.K))
         {
-            mainCharController.SetImput("LHit");
+            mainCharController.UserImput("AtkRg");
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            mainCharController.UserImput("Jump");
         }
     }
 }
