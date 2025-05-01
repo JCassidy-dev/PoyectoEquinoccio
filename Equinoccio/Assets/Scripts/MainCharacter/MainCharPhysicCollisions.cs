@@ -3,9 +3,9 @@ using UnityEngine;
 public class MainCharPhysicCollisions : MonoBehaviour 
 {
     
-    RaycastHit2D checkGround; 
-    RaycastHit2D checkWallLeft;
-    RaycastHit2D checkWallRight; 
+    public RaycastHit2D checkGround;
+    public RaycastHit2D checkWallLeft;
+    public RaycastHit2D checkWallRight; 
     float distanceToCollisionGround; 
     float distanceToCollisionWall; 
     Vector2 colliderCenter;

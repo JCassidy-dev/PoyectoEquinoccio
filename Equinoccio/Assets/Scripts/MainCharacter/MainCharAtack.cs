@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MainCharAtack
+public class MainCharAtack : MonoBehaviour
 {
     
 }

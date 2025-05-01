@@ -7,44 +7,35 @@ public class MainCharImputs : MonoBehaviour
 
     void Awake()
     {
-        // Busca el otro componente en el mismo GameObject
         mainCharController = GetComponent<MainCharController>();
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            mainCharController.UserImput("Up");
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            mainCharController.UserImput("Left");
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            mainCharController.UserImput("Down");
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            mainCharController.UserImput("Right");
-        }
+        // Movimiento
+        CheckKey(KeyCode.W, "Up");
+        CheckKey(KeyCode.S, "Down");
+        CheckKey(KeyCode.A, "Left");
+        CheckKey(KeyCode.D, "Right");
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // Otras acciones
+        if (Input.GetKeyDown(KeyCode.Space))
+            mainCharController.UserInput("Jump", true);
+        if (Input.GetKeyDown(KeyCode.J))
+            mainCharController.UserInput("AtkM", true);
+        if (Input.GetKeyDown(KeyCode.K))
+            mainCharController.UserInput("AtkRg", true);
+    }
+
+    void CheckKey(KeyCode key, string action)
+    {
+        if (Input.GetKey(key))
         {
-            
+            mainCharController.UserInput(action, true); 
         }
-        if (Input.GetKey(KeyCode.J))
+        else if (Input.GetKeyUp(key))
         {
-            mainCharController.UserImput("AtkM");
-        }
-        if (Input.GetKey(KeyCode.K))
-        {
-            mainCharController.UserImput("AtkRg");
-        }
-        if (Input.GetKey(KeyCode.Space))
-        {
-            mainCharController.UserImput("Jump");
+            mainCharController.UserInput(action, false); 
         }
     }
 }
