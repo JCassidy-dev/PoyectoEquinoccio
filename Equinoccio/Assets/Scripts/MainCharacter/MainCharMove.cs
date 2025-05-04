@@ -76,33 +76,28 @@ public class MainCharMove : MonoBehaviour
         grounded = controller.grounded;
         wallNearLeft = controller.wallNearLeft;
         wallNearRight = controller.wallNearRight;
-         
-      
+        if (grounded || wallNearLeft || wallNearRight)
+        {
+            anim.SetBool("falling", false);
+        }
+
     }
     public void JumpPress()
     {
         if (grounded || wallNearRight || wallNearLeft)
         {
-            anim.SetBool("falling", false);
-            canJump = true;
-            fly = false;
-            if (canJump)
-            {
-                Jump();
-                canJump = false;
+             Jump();
+            canJump = false;
                 fly = true;
-            }
-            else if (fly)
-            {
-                Jump();
-                fly = false;
-            }
+            anim.SetBool("falling", true);
+        } 
+        else if (fly)
+        {
+             Jump();
+             fly = false;
             anim.SetBool("falling", true);
         }
-        else
-        {
-            canJump = false;
-        }
+       
 
     }
     private void Jump()

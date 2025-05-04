@@ -27,12 +27,15 @@ public class MainCharController : MonoBehaviour
     private void Update()
     {
         xDirection = input.xDirection;
-        grounded = collisionsMC.checkGround.collider != null;
-        Debug.Log(grounded);
+       
         wallNearLeft = collisionsMC.checkWallLeft.collider != null;
         wallNearRight = collisionsMC.checkWallRight.collider != null;
     }
-
+    private void FixedUpdate()
+    {
+      grounded = collisionsMC.grounded;
+      Debug.Log("Controlador" + grounded);
+    }
     public void UserInput(string direction, bool isPressed)
     {
         switch (direction)
