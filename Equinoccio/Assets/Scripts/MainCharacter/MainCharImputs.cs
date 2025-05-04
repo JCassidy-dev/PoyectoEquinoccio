@@ -12,13 +12,11 @@ public class MainCharImputs : MonoBehaviour
 
     void Update()
     {
-        // Movimiento
+       
         CheckKey(KeyCode.W, "Up");
         CheckKey(KeyCode.S, "Down");
         CheckKey(KeyCode.A, "Left");
         CheckKey(KeyCode.D, "Right");
-
-        // Otras acciones
         if (Input.GetKeyDown(KeyCode.Space))
             mainCharController.UserInput("Jump", true);
         if (Input.GetKeyDown(KeyCode.J))

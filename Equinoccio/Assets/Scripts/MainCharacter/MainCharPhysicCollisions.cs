@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class MainCharPhysicCollisions : MonoBehaviour 
 {
@@ -7,17 +8,26 @@ public class MainCharPhysicCollisions : MonoBehaviour
     public RaycastHit2D checkWallLeft;
     public RaycastHit2D checkWallRight; 
     float distanceToCollisionGround; 
-    float distanceToCollisionWall; 
+    float distanceToCollisionWall;
+    float horizontal;
+    float horizontalOrigin;
     Vector2 colliderCenter;
     [SerializeField] BoxCollider2D boxCollider;
     [SerializeField] CapsuleCollider2D capsuleCollider;
 
+
     public LayerMask wallMask;
-    
-    private void Start()
+
+    private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
+
+
+    }
+    private void Start()
+    {
+       
         colliderCenter = boxCollider.bounds.center;
         distanceToCollisionGround = 1.78f;
         distanceToCollisionWall = 1.44f;
@@ -25,6 +35,9 @@ public class MainCharPhysicCollisions : MonoBehaviour
 
     private void Update()
     {
+        horizontal = Input.GetAxis("Horizontal");
+        if (horizontal < 0.0f) transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+        else if (horizontal > 0.0f) transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         colliderCenter = boxCollider.bounds.center; 
         checkGround = Physics2D.Raycast(colliderCenter, Vector2.down, distanceToCollisionGround);
         checkWallLeft= Physics2D.Raycast(colliderCenter, Vector2.left, distanceToCollisionWall, wallMask);
