@@ -16,7 +16,8 @@ public class MainCharPhysicCollisions : MonoBehaviour
     [SerializeField] CapsuleCollider2D capsuleCollider;
 
 
-    public LayerMask wallMask;
+
+    public LayerMask groundMask;
 
     private void Awake()
     {
@@ -40,8 +41,9 @@ public class MainCharPhysicCollisions : MonoBehaviour
         else if (horizontal > 0.0f) transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         colliderCenter = boxCollider.bounds.center; 
         checkGround = Physics2D.Raycast(colliderCenter, Vector2.down, distanceToCollisionGround);
-        checkWallLeft= Physics2D.Raycast(colliderCenter, Vector2.left, distanceToCollisionWall, wallMask);
-        checkWallRight= Physics2D.Raycast(colliderCenter, Vector2.right, distanceToCollisionWall, wallMask);
+        Debug.Log("Detector Inicial: " + checkGround.ToString());
+        checkWallLeft= Physics2D.Raycast(colliderCenter, Vector2.left, distanceToCollisionWall, groundMask);
+        checkWallRight= Physics2D.Raycast(colliderCenter, Vector2.right, distanceToCollisionWall, groundMask);
 
     }
 

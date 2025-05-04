@@ -4,15 +4,16 @@ using UnityEngine;
 public class MainCharImputs : MonoBehaviour
 {
     private MainCharController mainCharController;
-
+    public float xDirection;
     void Awake()
     {
         mainCharController = GetComponent<MainCharController>();
+        xDirection = 1;
     }
 
     void Update()
     {
-       
+        xDirection = Input.GetAxisRaw("Horizontal");
         CheckKey(KeyCode.W, "Up");
         CheckKey(KeyCode.S, "Down");
         CheckKey(KeyCode.A, "Left");
