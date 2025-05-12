@@ -29,8 +29,8 @@ public class MainCharPhysicCollisions : MonoBehaviour
     float leftX;
     float rightX;
     float centerY;
-    bool isTouchingLeft;
-    bool isTouchingRight;
+    public bool isTouchingLeft;
+    public bool isTouchingRight;
     Vector2 rightTop;
     Vector2 rightCenter;
     Vector2 rightBottom;
@@ -38,6 +38,7 @@ public class MainCharPhysicCollisions : MonoBehaviour
     Vector2 leftCenter;
     Vector2 leftBottom;
     public LayerMask groundMask;
+    float pixelDesviationY;
 
     private void Awake()
     {
@@ -54,7 +55,8 @@ public class MainCharPhysicCollisions : MonoBehaviour
         colliderCenter = boxCollider.bounds.center;
         distanceToCollisionGround = 0.2f;
         distanceToCollisionWall = 0.2f;
-        pixelDesviation = 0.1f;
+        pixelDesviation = 0.15f;
+        pixelDesviationY = 0.1f;
     }
 
     private void FixedUpdate()
@@ -87,26 +89,28 @@ public class MainCharPhysicCollisions : MonoBehaviour
         grounded = isGroundedLeft || isGroundedCenter || isGroundedRight;
 
         //Latheral
-        rightTop = new Vector2(rightX , boundsMax.y - pixelDesviation);
-        rightCenter = new Vector2(rightX, centerY);
-        rightBottom = new Vector2(rightX, boundsMin.y + pixelDesviation);
+        rightTop = new Vector2(rightX -pixelDesviation , boundsMax.y - pixelDesviation);
+        rightCenter = new Vector2(rightX - pixelDesviation, centerY);
+        rightBottom = new Vector2(rightX - pixelDesviation, boundsMin.y + pixelDesviation);
 
-        leftTop = new Vector2(leftX, boundsMax.y - pixelDesviation);
-        leftCenter = new Vector2(leftX, centerY);
-        leftBottom = new Vector2(leftX, boundsMin.y + pixelDesviation);
+        leftTop = new Vector2(leftX + pixelDesviation, boundsMax.y - pixelDesviation);
+        leftCenter = new Vector2(leftX + pixelDesviation, centerY);
+        leftBottom = new Vector2(leftX + pixelDesviation, boundsMin.y + pixelDesviation);
 
         // right
-        RaycastHit2D hitRight1 = Physics2D.Raycast(rightTop, Vector2.right, distanceToCollisionWall, groundMask);
-        RaycastHit2D hitRight2 = Physics2D.Raycast(rightCenter, Vector2.right, distanceToCollisionWall, groundMask);
-        RaycastHit2D hitRight3 = Physics2D.Raycast(rightBottom, Vector2.right, distanceToCollisionWall, groundMask);
+        RaycastHit2D hitRight1 = Physics2D.Raycast(rightTop, Vector2.right, distanceToCollisionWall);
+        RaycastHit2D hitRight2 = Physics2D.Raycast(rightCenter, Vector2.right, distanceToCollisionWall);
+        RaycastHit2D hitRight3 = Physics2D.Raycast(rightBottom, Vector2.right, distanceToCollisionWall);
 
         // left
-        RaycastHit2D hitLeft1 = Physics2D.Raycast(leftTop, Vector2.left, distanceToCollisionWall, groundMask);
-        RaycastHit2D hitLeft2 = Physics2D.Raycast(leftCenter, Vector2.left, distanceToCollisionWall, groundMask);
-        RaycastHit2D hitLeft3 = Physics2D.Raycast(leftBottom, Vector2.left, distanceToCollisionWall, groundMask);
+        RaycastHit2D hitLeft1 = Physics2D.Raycast(leftTop, Vector2.left, distanceToCollisionWall);
+        RaycastHit2D hitLeft2 = Physics2D.Raycast(leftCenter, Vector2.left, distanceToCollisionWall);
+        RaycastHit2D hitLeft3 = Physics2D.Raycast(leftBottom, Vector2.left, distanceToCollisionWall);
 
-        isTouchingRight = hitRight1 || hitRight2 || hitRight3;
-        isTouchingLeft = hitLeft1 || hitLeft2 || hitLeft3;
+        isTouchingRight = (hitRight1.collider != null) || (hitRight2.collider != null) || (hitRight3.collider != null);
+        isTouchingLeft = (hitLeft1.collider != null) || (hitLeft2.collider != null) || (hitLeft3.collider != null);
+        Debug.Log("isTouchingRight" + isTouchingRight);
+        Debug.Log("isTouchingLeft" + isTouchingLeft);
     }
 
     private void OnDrawGizmos()

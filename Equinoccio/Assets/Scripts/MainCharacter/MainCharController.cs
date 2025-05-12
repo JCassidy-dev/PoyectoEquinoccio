@@ -8,6 +8,7 @@ public class MainCharController : MonoBehaviour
     MainCharPhysicCollisions collisionsMC;
     MainCharMove movement;
     MainCharImputs input;
+    MainCharAtack atack;
     public bool grounded;
     public bool wallNearLeft;
     public bool wallNearRight; 
@@ -17,6 +18,7 @@ public class MainCharController : MonoBehaviour
         collisionsMC = GetComponent<MainCharPhysicCollisions>();
         movement = GetComponent<MainCharMove>();
         input = GetComponent<MainCharImputs>();
+        atack = GetComponent<MainCharAtack>();
 
     }
     private void Start()
@@ -28,13 +30,14 @@ public class MainCharController : MonoBehaviour
     {
         xDirection = input.xDirection;
        
-        wallNearLeft = collisionsMC.checkWallLeft.collider != null;
-        wallNearRight = collisionsMC.checkWallRight.collider != null;
+        wallNearLeft = collisionsMC.isTouchingLeft;
+        Debug.Log("Controlador " + wallNearLeft +" left");
+        wallNearRight = collisionsMC.isTouchingRight;
+        Debug.Log("Controlador " + wallNearRight + " right");
     }
     private void FixedUpdate()
     {
       grounded = collisionsMC.grounded;
-      Debug.Log("Controlador" + grounded);
     }
     public void UserInput(string direction, bool isPressed)
     {
@@ -52,6 +55,11 @@ public class MainCharController : MonoBehaviour
                 break;
             case "Jump":
                 movement.JumpPress();
+                break;
+            case "AtkM":
+            case "AtkRg":
+            case "AtkSp":
+                atack.Attack(direction);
                 break;
             default:
                 break;

@@ -4774,6 +4774,7 @@ GameObject:
   - component: {fileID: 1885309037}
   - component: {fileID: 1885309040}
   - component: {fileID: 1885309041}
+  - component: {fileID: 1885309042}
   m_Layer: 0
   m_Name: Hiro
   m_TagString: Untagged
@@ -4815,8 +4816,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.084251285, y: -0.035035133}
-  m_Size: {x: 0.691735, y: 1.7535057}
+  m_Offset: {x: -0.080109, y: 0.01881504}
+  m_Size: {x: 1.0314043, y: 1.861206}
   m_Direction: 0
 --- !u!50 &1885309033
 Rigidbody2D:
@@ -5054,6 +5055,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1885309042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885309031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943e3f9675f1e4c43b0420ffb5af79a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canAtackMelee: 0
+  canAtackRngd: 0
+  lastAtackTimeMelee: 0
+  lastAtackTimeRngd: 0
+  cooldownMeleeAtk: 0
+  cooldownRngdAtk: 0
+  animator: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

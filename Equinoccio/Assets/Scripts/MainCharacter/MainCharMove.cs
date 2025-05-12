@@ -18,7 +18,7 @@ public class MainCharMove : MonoBehaviour
     public bool wallNearRight;
     bool canJump;
     bool fly;
-    
+    bool canTurn;
     public float jumpForce;
 
     void Awake()
@@ -37,6 +37,7 @@ public class MainCharMove : MonoBehaviour
         coyoteTimeRun = 0.1f;
         runTimer = 0f;
         jumpForce = 1800f;
+        canTurn = true;
     }
     public void SetDirection(float Direction, bool isPressed)
     {
@@ -47,15 +48,20 @@ public class MainCharMove : MonoBehaviour
         {
             moveDirection = 0;
         }
-    }  
+    }
     private void Update()
     {
-        looking = controller.xDirection;
-
-        if (looking != 0)
+        if (canTurn)
+        {
+            looking = controller.xDirection;
+        }
+        
+        if (looking != 0 )
         {
             anim.SetBool("running", true);
-            runTimer = coyoteTimeRun; 
+            anim.SetBool("leftWall", false);
+            anim.SetBool("rightWall", false);
+            runTimer = coyoteTimeRun;
             if (looking < 0.0f)
                 transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
             else if (looking > 0.0f)
@@ -66,7 +72,9 @@ public class MainCharMove : MonoBehaviour
             if (runTimer > 0f)
             {
                 runTimer -= Time.deltaTime;
-                anim.SetBool("running", true); 
+                anim.SetBool("running", true);
+                anim.SetBool("leftWall", false);
+                anim.SetBool("rightWall", false);
             }
             else
             {
@@ -80,7 +88,28 @@ public class MainCharMove : MonoBehaviour
         {
             anim.SetBool("falling", false);
         }
-
+        if (!grounded && wallNearLeft)
+        {
+            Debug.Log("Muro en la Izquierda");
+            anim.SetBool("running", false);
+            anim.SetBool("leftWall", true);
+            canTurn = false;
+            looking = 1;
+        }
+        // Si está en el aire y tocando pared a la derecha
+        else if (!grounded && wallNearRight)
+        {
+            Debug.Log("Muro en la Derecha");
+            anim.SetBool("running", false);
+            anim.SetBool("rightWall", true);
+            canTurn = false;
+            looking = -1;
+        } else
+        {
+            canTurn = true;
+            anim.SetBool("leftWall", false);
+            anim.SetBool("rightWall", false);
+        }
     }
     public void JumpPress()
     {
