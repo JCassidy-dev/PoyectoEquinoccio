@@ -13,6 +13,7 @@ public class MainCharController : MonoBehaviour
     public bool wallNearLeft;
     public bool wallNearRight; 
     public float xDirection;
+    public float looking;
     private void Awake()
     {
         collisionsMC = GetComponent<MainCharPhysicCollisions>();
@@ -29,7 +30,7 @@ public class MainCharController : MonoBehaviour
     private void Update()
     {
         xDirection = input.xDirection;
-       
+        looking = movement.looking;
         wallNearLeft = collisionsMC.isTouchingLeft;
         Debug.Log("Controlador " + wallNearLeft +" left");
         wallNearRight = collisionsMC.isTouchingRight;

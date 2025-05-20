@@ -16,10 +16,13 @@ public class MainCharMove : MonoBehaviour
     public bool grounded;
     public bool wallNearLeft;
     public bool wallNearRight;
+    bool wallRide;
     bool canJump;
     bool fly;
     bool canTurn;
-    public float jumpForce;
+    public float jumpForceUp;
+    public float jumpForceX;
+    [SerializeField] float wallRideDownForce;
 
     void Awake()
     {
@@ -36,8 +39,12 @@ public class MainCharMove : MonoBehaviour
         looking = controller.xDirection;
         coyoteTimeRun = 0.1f;
         runTimer = 0f;
-        jumpForce = 1800f;
+        jumpForceUp = 75f;
         canTurn = true;
+        wallRide = false;
+        wallRideDownForce = 0.5f;
+        canJump = true;
+        jumpForceX = 25000f;
     }
     public void SetDirection(float Direction, bool isPressed)
     {
@@ -56,31 +63,28 @@ public class MainCharMove : MonoBehaviour
             looking = controller.xDirection;
         }
         
-        if (looking != 0 )
-        {
-            anim.SetBool("running", true);
-            anim.SetBool("leftWall", false);
-            anim.SetBool("rightWall", false);
-            runTimer = coyoteTimeRun;
-            if (looking < 0.0f)
-                transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-            else if (looking > 0.0f)
-                transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        }
-        else
-        {
-            if (runTimer > 0f)
-            {
-                runTimer -= Time.deltaTime;
-                anim.SetBool("running", true);
-                anim.SetBool("leftWall", false);
-                anim.SetBool("rightWall", false);
-            }
-            else
-            {
-                anim.SetBool("running", false);
-            }
-        }
+       if (grounded && looking != 0)
+{
+    anim.SetBool("running", true);
+    runTimer = coyoteTimeRun;
+
+    if (looking < 0.0f)
+        transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+    else if (looking > 0.0f)
+        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+}
+else if (grounded)
+{
+    if (runTimer > 0f)
+    {
+        runTimer -= Time.deltaTime;
+        anim.SetBool("running", true);
+    }
+    else
+    {
+        anim.SetBool("running", false);
+    }
+}
         grounded = controller.grounded;
         wallNearLeft = controller.wallNearLeft;
         wallNearRight = controller.wallNearRight;
@@ -93,22 +97,25 @@ public class MainCharMove : MonoBehaviour
             Debug.Log("Muro en la Izquierda");
             anim.SetBool("running", false);
             anim.SetBool("leftWall", true);
+            wallRide = true;
             canTurn = false;
-            looking = 1;
+           
         }
-        // Si está en el aire y tocando pared a la derecha
+        
         else if (!grounded && wallNearRight)
         {
             Debug.Log("Muro en la Derecha");
             anim.SetBool("running", false);
             anim.SetBool("rightWall", true);
+            wallRide = true;
             canTurn = false;
-            looking = -1;
+           
         } else
         {
             canTurn = true;
             anim.SetBool("leftWall", false);
             anim.SetBool("rightWall", false);
+            wallRide = false;
         }
     }
     public void JumpPress()
@@ -130,8 +137,36 @@ public class MainCharMove : MonoBehaviour
 
     }
     private void Jump()
-    {
-        rb.AddForce(Vector2.up * jumpForce);
+    {  
+        if (wallRide)
+        {          
+            rb.linearVelocity = Vector2.zero;
+            if (wallNearLeft)
+            {
+                
+                anim.SetTrigger("jump");
+                Vector2 jumpForceVec = new Vector2(jumpForceX, jumpForceUp);
+                rb.AddForce(jumpForceVec, ForceMode2D.Impulse);
+                
+            }
+            else if (wallNearRight)
+            {
+                
+                anim.SetTrigger("jump");
+                Vector2 jumpForceVec = new Vector2(-jumpForceX, jumpForceUp);
+                rb.AddForce(jumpForceVec, ForceMode2D.Impulse);
+              
+            }
+        }
+        else
+        {
+            Vector2 currentVelocity = rb.linearVelocity;
+            currentVelocity.y = 0;
+            rb.linearVelocity = currentVelocity;
+            Vector2 jumpForceVec = new Vector2(0, jumpForceUp);
+            rb.AddForce(jumpForceVec, ForceMode2D.Impulse);
+        }
+
         anim.SetTrigger("jump");
     }
 
@@ -139,6 +174,11 @@ public class MainCharMove : MonoBehaviour
     {
         Vector2 targetVelocity = new Vector2(moveDirection * speed, rb.linearVelocity.y);
         rb.linearVelocity = Vector2.SmoothDamp(rb.linearVelocity, targetVelocity, ref smoothTimeRef, smoothTime);     
+        if(wallRide)
+        {
+            Vector2 wallDown = new Vector2(0f, -wallRideDownForce);
+            rb.linearVelocity = Vector2.SmoothDamp(rb.linearVelocity, wallDown, ref smoothTimeRef, smoothTime);
+        }
     }
   
 }
