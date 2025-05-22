@@ -18,6 +18,8 @@ public class MainCharAtack : MonoBehaviour
     public float dashSpeed;
     private Vector2 smoothTimeRef;
     public float smoothTime;
+    [SerializeField] public float distanceFireball;
+    public bool atacking;
 
     private void Awake()
     {
@@ -36,6 +38,9 @@ public class MainCharAtack : MonoBehaviour
         lastAtackTimeRngd = Time.time;
         dashDuration = 0.1f;
         dashSpeed = 700f;
+        distanceFireball = 1.65f;
+        atacking = false;
+
     }
 
     private void Update()
@@ -55,16 +60,18 @@ public class MainCharAtack : MonoBehaviour
         switch (atack)
         {
             case "AtkM":
-                    if (canAtackMelee)
+                    if (canAtackMelee && !atacking)
                     {
+                        atacking = true;
                         animator.SetTrigger("meleeAtack");
                         lastAtackTimeMelee = Time.time;
                         canAtackMelee = false;
                     } 
                 break;
             case "AtkSp":
-                    if (canAtackMelee)
+                    if (canAtackMelee && !atacking)
                     {
+                        atacking = true;
                         animator.SetTrigger("spearAtack");
                         StartCoroutine(Dashear());
                     lastAtackTimeMelee = Time.time;
@@ -72,15 +79,17 @@ public class MainCharAtack : MonoBehaviour
                     }
                 break;
             case "AtkRg":
-                if (canAtackRngd)
+                if (canAtackRngd && !atacking)
                 {
-                    Shoot();
+                    atacking = true;
                     animator.SetTrigger("rangedAtack");
                     lastAtackTimeRngd = Time.time;
                     canAtackRngd = false;
+                    StartCoroutine(cdAnimation());
                 }
                 break;
         }
+        atacking = false;
     }
     private void Shoot()
     {
@@ -88,7 +97,7 @@ public class MainCharAtack : MonoBehaviour
         if (transform.localScale.x == 1.0f) direction = Vector3.right;
         else direction = Vector3.left;
 
-        GameObject fireball = Instantiate(Fireball, transform.position + direction * 0.1f, Quaternion.identity);
+        GameObject fireball = Instantiate(Fireball, transform.position + direction * distanceFireball, Quaternion.identity);
         fireball.GetComponent<Fireball>().SetDirection(direction);
     }
     private IEnumerator Dashear()
@@ -112,6 +121,12 @@ public class MainCharAtack : MonoBehaviour
         rb.gravityScale = originalGravityScale;
         rb.linearVelocity = Vector2.zero;
 
+    }
+
+    public IEnumerator cdAnimation()
+    {
+        yield return new WaitForSeconds(0.2f);
+        Shoot();
     }
 
 }

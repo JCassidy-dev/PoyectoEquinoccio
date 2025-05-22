@@ -403,12 +403,13 @@ MonoBehaviour:
   cooldownMeleeAtk: 0
   cooldownRngdAtk: 0
   animator: {fileID: 0}
-  Fireball: {fileID: 0}
+  Fireball: {fileID: 3622283914030155471, guid: 2c56e89c159562a4989d36120f7ad98b, type: 3}
   rb: {fileID: 0}
   controller: {fileID: 0}
   dashDuration: 0
   dashSpeed: 0
   smoothTime: 0
+  distanceFireball: 0
 --- !u!1 &2690420991428984930
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 2293534429995610889}
   - component: {fileID: 7813809082136208778}
   - component: {fileID: 5058044312673593140}
+  - component: {fileID: 6423926991845667680}
   m_Layer: 0
   m_Name: Fireball
-  m_TagString: Untagged
+  m_TagString: Fireball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3622283914030155471}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000007539057, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.652, y: 9.55, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -232,3 +233,17 @@ CapsuleCollider2D:
   m_Offset: {x: 0.12063791, y: 0.0043067196}
   m_Size: {x: 0.96074975, y: 0.5299029}
   m_Direction: 1
+--- !u!114 &6423926991845667680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3622283914030155471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af585929814b164cb35ce52354342f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0
+  Sound: {fileID: 0}

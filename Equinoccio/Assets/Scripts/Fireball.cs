@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Fireball : MonoBehaviour
@@ -11,9 +12,10 @@ public class Fireball : MonoBehaviour
     private void Start()
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
+        Speed = 3f;
 
     }
-
+     
     private void FixedUpdate()
     {
         Rigidbody2D.linearVelocity = Direction * Speed;
@@ -22,28 +24,40 @@ public class Fireball : MonoBehaviour
     public void SetDirection(Vector3 direction)
     {
         Direction = direction;
+        transform.localScale = new Vector3(direction.x, 1.0f, 1.0f);
     }
 
-    public void DestroyBullet()
+    public void DestroyFireball()
     {
+       
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D trigger)
     {
-        if (other.gameObject.CompareTag("enemy"))
-        {/*
-            HeroeStats enemy = other.gameObject.GetComponent<HeroeStats>();
+        /*if (trigger.gameObject.CompareTag("enemy"))
+        {
+            HeroeStats enemy = trigger.gameObject.GetComponent<HeroeStats>();
             if (enemy != null)
             {
                 enemy.TakeDamage(1);
             }
+       
+        }
         */
-        }
-        else if (other.gameObject.CompareTag("floor"))
-        {
-            DestroyBullet();
-        }
-        DestroyBullet();
+        
+        DestroyFireball();
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("floor"))
+        {
+            Debug.Log("Toque fin");
+            DestroyFireball();
+        }
+        DestroyFireball();
+    }
+
+    
 }
