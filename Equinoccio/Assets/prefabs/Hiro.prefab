@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8315913596559744788}
   - component: {fileID: 1728797308511292641}
+  - component: {fileID: 7965922595721582535}
   m_Layer: 0
   m_Name: Spear
-  m_TagString: Untagged
+  m_TagString: Spear
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,6 +79,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.5094516, y: 0.7602587}
   m_EdgeRadius: 0
+--- !u!114 &7965922595721582535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800443419154419358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d2a47be65f6b54d8dc520c8d5fa6bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageSword: 0
+  damageSpear: 0
+  increaseDamage: 0
+  moreStamina: 0
 --- !u!1 &1059483498824303630
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +114,7 @@ GameObject:
   - component: {fileID: 832946619161923223}
   - component: {fileID: 6194186643858836331}
   - component: {fileID: 4689926061843639972}
+  - component: {fileID: 7278096813050099863}
   m_Layer: 0
   m_Name: Hiro
   m_TagString: Hiro
@@ -304,6 +322,7 @@ MonoBehaviour:
   wallNearRight: 0
   xDirection: 0
   looking: 0
+  stamina: 0
 --- !u!114 &5960607674267969910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +429,29 @@ MonoBehaviour:
   dashSpeed: 0
   smoothTime: 0
   distanceFireball: 0
+  atacking: 0
+  lessStamina: 0
+--- !u!114 &7278096813050099863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059483498824303630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97eb9331f062d0745ba38f549bcd93e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  health: 0
+  maxStamina: 0
+  stamina: 0
+  cureItem: 0
+  doubleJump: 0
+  wallJump: 0
+  canFireball: 0
+  canSpear: 0
 --- !u!1 &2690420991428984930
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,9 +462,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6538027967661023993}
   - component: {fileID: 7466233748373445256}
+  - component: {fileID: 3292514382871750854}
   m_Layer: 0
   m_Name: Sword
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -488,6 +531,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.3832774, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3292514382871750854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2690420991428984930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d2a47be65f6b54d8dc520c8d5fa6bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageSword: 0
+  damageSpear: 0
+  increaseDamage: 0
+  moreStamina: 0
 --- !u!1 &5747861383713062009
 GameObject:
   m_ObjectHideFlags: 0

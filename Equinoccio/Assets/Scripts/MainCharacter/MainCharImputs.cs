@@ -26,6 +26,8 @@ public class MainCharImputs : MonoBehaviour
             mainCharController.UserInput("AtkRg", true);
         if (Input.GetKeyDown(KeyCode.L))
             mainCharController.UserInput("AtkSp", true);
+        if (Input.GetKeyDown(KeyCode.H))
+            mainCharController.UserInput("Heal", true);
     }
 
     void CheckKey(KeyCode key, string action)

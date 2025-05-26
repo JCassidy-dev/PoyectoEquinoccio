@@ -23,6 +23,10 @@ public class MainCharMove : MonoBehaviour
     public float jumpForceUp;
     public float jumpForceX;
     [SerializeField] float wallRideDownForce;
+    bool takeDamage;
+    int directionDamage = 0;
+    public float PlayerXSituation;
+    public int knockbackStrength = 40;
 
     void Awake()
     {
@@ -91,6 +95,9 @@ else if (grounded)
         if (grounded || wallNearLeft || wallNearRight)
         {
             anim.SetBool("falling", false);
+        } else
+        {
+            anim.SetBool("falling", true);
         }
         if (!grounded && wallNearLeft)
         {
@@ -179,6 +186,19 @@ else if (grounded)
             Vector2 wallDown = new Vector2(0f, -wallRideDownForce);
             rb.linearVelocity = Vector2.SmoothDamp(rb.linearVelocity, wallDown, ref smoothTimeRef, smoothTime);
         }
+        if (takeDamage)
+        {
+
+            Vector2 knockbackForce = new Vector2(directionDamage * knockbackStrength, rb.linearVelocity.y);
+            rb.linearVelocity = knockbackForce;
+            takeDamage = false;
+            takeDamage = false;
+        }
     }
-  
+    public void SetDamage(int direction)
+    {
+        takeDamage = true;
+        directionDamage = direction;
+    }
+
 }

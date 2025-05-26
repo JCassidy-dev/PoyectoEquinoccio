@@ -20,7 +20,7 @@ public class MainCharAtack : MonoBehaviour
     public float smoothTime;
     [SerializeField] public float distanceFireball;
     public bool atacking;
-
+    public float lessStamina;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -45,6 +45,7 @@ public class MainCharAtack : MonoBehaviour
 
     private void Update()
     {
+        
         if (Time.time > lastAtackTimeMelee + cooldownMeleeAtk)
         {
             canAtackMelee = true;
@@ -69,23 +70,28 @@ public class MainCharAtack : MonoBehaviour
                     } 
                 break;
             case "AtkSp":
-                    if (canAtackMelee && !atacking)
+                    if (canAtackMelee && !atacking && controller.stamina > 10)
                     {
                         atacking = true;
                         animator.SetTrigger("spearAtack");
                         StartCoroutine(Dashear());
-                    lastAtackTimeMelee = Time.time;
+                        lastAtackTimeMelee = Time.time;
                         canAtackMelee = false;
+                        lessStamina = 10;
+                        controller.decreaseStamina(lessStamina);
                     }
                 break;
             case "AtkRg":
-                if (canAtackRngd && !atacking)
+                if (canAtackRngd && !atacking && controller.stamina > 15)
                 {
                     atacking = true;
                     animator.SetTrigger("rangedAtack");
                     lastAtackTimeRngd = Time.time;
                     canAtackRngd = false;
                     StartCoroutine(cdAnimation());
+                    lessStamina = 15;
+                    controller.decreaseStamina(lessStamina);
+
                 }
                 break;
         }
