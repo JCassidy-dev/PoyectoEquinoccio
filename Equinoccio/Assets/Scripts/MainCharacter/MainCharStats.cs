@@ -22,6 +22,7 @@ public class MainCharStats : MonoBehaviour
     public MonoBehaviour controller;
     public HealItems[] healingObjects;
     public float amount = 20f;
+ //   public ParticleSystem actionParticles;
     private void Awake()
     {
         if (instance == null)
@@ -144,6 +145,7 @@ public class MainCharStats : MonoBehaviour
     {
         if (health< maxHealth && cureItem > 0)
         {
+           // actionParticles.Play();
          health += amount;
             if (health > maxHealth)
             {

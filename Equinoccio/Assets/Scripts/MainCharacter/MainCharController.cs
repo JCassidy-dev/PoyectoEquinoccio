@@ -21,6 +21,7 @@ public class MainCharController : MonoBehaviour
     float lastHit = 0;
     float Invulneravility = 1f;
     bool savepoint;
+    
     private void Awake()
     {
         collisionsMC = GetComponent<MainCharPhysicCollisions>();
